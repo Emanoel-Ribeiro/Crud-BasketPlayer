@@ -2,7 +2,9 @@
 require_once(__DIR__ . '/../class/JogadorClass.php');
 
 class JogadorController {
+    
     private $jogador;
+   //conecta ao banco de dados
     private $conn;
 
     public function __construct() {
@@ -80,9 +82,13 @@ public function index($termo = null) {
     }
 
     private function uploadArquivo($arquivo, $pasta) {
+        //cria um nome diferente para o arquivo 
         $nome = uniqid() . '_' . $arquivo['name'];
+        // faz o caminho para a pasta de uploads
         $caminho = __DIR__ . "/../uploads/{$pasta}/" . $nome;
+        // move para a pasta temporária para a pasta de uploads
         move_uploaded_file($arquivo['tmp_name'], $caminho);
+        //Retorna o nome do arquivo salvo, que será guardado no bd.
         return $nome;
     }
 }
